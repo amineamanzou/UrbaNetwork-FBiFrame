@@ -1,2 +1,3 @@
 AppInfo.php
 sdk/src/**/*
+/nbproject/*
