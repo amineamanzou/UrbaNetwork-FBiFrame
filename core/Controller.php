@@ -2,7 +2,8 @@
 class Controller {
     
     public $request;
-    public $vars = array();       //contient les variable communiqué à travers la vue
+    private $vars = array();       //contient les variable communiqué à travers la vue
+    private $layout = 'default';
     
     function __construct($request) {
         $this->request = $request;
@@ -11,7 +12,10 @@ class Controller {
     public function render($view){
         extract($this->vars);
         $view = ROOT.DS.'view'.DS.$this->request->controller.DS.$view.'.php';
-        require $view;
+        ob_start();
+        require($view);
+        $content_for_layout = ob_get_clean();
+        require ROOT.DS.'view'.DS.'layout'.DS.$this->layout.'.php';
     }
     
     
@@ -32,4 +36,5 @@ class Controller {
         }
     }
 }
+?>
 
