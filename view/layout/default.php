@@ -16,7 +16,14 @@
                     <li class="active"><a href="#">WhatTheyDo</a></li>
                     <li><a href="#">WhatIDo</a></li>
                     <li><a href="#">Channel</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li class="dropdown" data-dropdown="dropdown">
+                        <a href="#" class="dropdown-toggle">About Us</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">The project</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </li>
                   </ul>
                 </div>
               </div>
