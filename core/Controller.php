@@ -1,18 +1,27 @@
 <?php
 class Controller {
     
-    public $request;
-    private $vars = array();       //contient les variable communiqué à travers la vue
-    private $layout = 'default';
-    private $rendered = false; // permet de savoir si la vue à déjà été rendus ou pas
+    public $request;                // objet Request
+    private $vars = array();        // contient les variable communiqué à travers la vue
+    private $layout = 'default';    // Layout utilisé pour rendre la vue
+    private $rendered = false;      // permet de savoir si la vue à déjà été rendus ou pas
 
 
-
+    /**
+     * Constructeur
+     * 
+     * @param $request Objet Request de notre appli
+     */
 
     function __construct($request) {
-        $this->request = $request;
+        $this->request = $request;      //On stock une request dans l'instance
     }
     
+    /**
+     * Permet de rendre une vue
+     * 
+     * @param $view Fichier à rendre (chemin depuis le dossier view ou nom de la vue)
+     */
     public function render($view){
         if ($this->rendered){
             return false;
@@ -48,6 +57,19 @@ class Controller {
         }
         else {
             $this->vars[$key] = $value;
+        }
+    }
+    
+    /**
+     * Permet de charger un model
+     * 
+     * @param $name nom du model
+     */
+    public function loadModel($name){
+        $file = ROOT.DS.'model'.DS.$name.'.php';
+        require_once $file;
+        if(!isset($this->$name)){
+             $this->$name = new $name();
         }
     }
 }
