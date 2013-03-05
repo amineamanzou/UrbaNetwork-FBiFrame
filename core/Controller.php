@@ -12,9 +12,9 @@ class Controller {
      * 
      * @param $request Objet Request de notre appli
      */
-
     function __construct($request) {
         $this->request = $request;      //On stock une request dans l'instance
+        $this->loadModel('Wids');
     }
     
     /**
@@ -28,7 +28,7 @@ class Controller {
         }
         else {
             extract($this->vars);
-            if (strpos($view, '/') == 0){
+            if (strpos($view, '/') === 0){
                  $view = ROOT.DS.'view'.$view.'.php';
             }
             else {

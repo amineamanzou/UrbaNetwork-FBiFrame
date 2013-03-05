@@ -8,7 +8,7 @@ class Dispatcher {
         Router::parse($this->request->url,$this->request);
         $controller = $this->loadController();
         //Si l'action n'est pas défini dans le tableau des méthodes du controller
-        if (!is_array($this->request->action,  get_class_methods($controller))){
+        if (!in_array($this->request->action,  get_class_methods($controller))){
             $this->error('Le controller '.$this->request->controller.
                     ' n\'a pas de méthode '.$this->request->action);
         }
