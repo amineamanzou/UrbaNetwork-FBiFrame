@@ -1,9 +1,14 @@
 <?php
 class Model{
     
+    public $db = 'default';
+    
+    /**
+     * Constructeur
+     * 
+     */
     public function __construct() {
-        global $databases;
-        print_r($databases);
+        print_r(Conf::$databases);
     }
     
     public function find(){

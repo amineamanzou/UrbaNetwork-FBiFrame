@@ -1,13 +1,19 @@
 <?php
-
-    $databases = array(
-        'default' => array(
-            'host'      => 'localhost',
-            'port'      => 5432,
-            'dbname'    => 'urbanetwork',
-            'login'     => 'root',
-            'password'  => ''
-        )
-    );
+class Conf {
+    
+    /**
+     *  Permet le stockage de plusieur base de donnée par exemple pour switcher
+     *  entre un environnement de production et développement.
+     */
+    static  $databases = array(
+                'default' => array(
+                    'host'      => 'localhost',
+                    'port'      => 5432,
+                    'dbname'    => 'urbanetwork',
+                    'login'     => 'root',
+                    'password'  => ''
+                )
+            );
+}
 
 ?>
