@@ -14,7 +14,7 @@ class Controller {
      */
     function __construct($request) {
         $this->request = $request;      //On stock une request dans l'instance
-        $this->loadModel('Wids');
+        $this->loadModel('Wid');
     }
     
     /**
@@ -67,10 +67,21 @@ class Controller {
      */
     public function loadModel($name){
         $file = ROOT.DS.'model'.DS.$name.'.php';
-        require_once $file;
+        require_once $file;     // Eviter qu'il charge plusieurs fois le même modèle.
         if(!isset($this->$name)){
              $this->$name = new $name();
         }
+    }
+    
+    /**
+     * Permet de gérer les erreurs de type 404 
+     * 
+     * @param $message message à afficher
+     */
+    public function e404($message){
+        header('HTTP/1.0 404 Not Found');
+        $controller->set('message',$message);
+        $controller->render('/errors/404'); 
     }
 }
 ?>

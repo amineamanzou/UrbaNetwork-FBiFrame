@@ -13,18 +13,15 @@ class Dispatcher {
                     ' n\'a pas de méthode '.$this->request->action);
         }
         else {
-            // action permettant d'appeller une action 
+            // action permettant d'appeller  une action 
             call_user_func_array(array($controller,$this->request->action), $this->request->params);
             $controller->render($this->request->action);
         }    
     }
     
     function error($message){
-        header('HTTP/1.0 404 Not Found');
         $controller = new Controller($this->request);
-        $controller->set('message',$message);
-        $controller->render('/errors/404'); 
-        
+        $controller->e404($message);
     }
     
     function loadController(){
@@ -34,7 +31,6 @@ class Dispatcher {
         require $file;
         // $name sera remplacé par le bon controller
         return new $name($this->request);
-        
     }
 
 
