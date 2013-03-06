@@ -1,5 +1,5 @@
 <?php
-class wids extends Model{
+class Wid extends Model{
     
     
     
