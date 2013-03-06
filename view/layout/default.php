@@ -1,41 +1,94 @@
+<?php $i=0; ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Urbanetwork</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+        <title><?php echo isset($title_for_layout)? $title_for_layout:'Urbanetwork'; ?></title>
         <link rel="stylesheet" href="/webroot/stylesheets/fbootstrapp/bootstrap.css">
         <link rel="stylesheet" href="/webroot/stylesheets/fbootstrapp/bootstrap.min.css">
     </head>
     
     <body>
-        <div class="header">
-            <div class="topbar" data-scrollspy="scrollspy">
-              <div class="topbar-inner">
-                <div class="container canvas">
-                  <a class="brand" href="#">Urbanetwork</a>
-                  <ul class="nav">
-                    <li class="active"><a href="#">WhatTheyDo</a></li>
-                    <li><a href="#">WhatIDo</a></li>
-                    <li><a href="#">Channel</a></li>
-                    <li class="dropdown" data-dropdown="dropdown">
-                        <a href="#" class="dropdown-toggle">About Us</a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">The project</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Contact Us</a></li>
-                        </ul>
-                    </li>
-                  </ul>
+        <div class="container canvas">
+            <div class="header">
+                <div class="topbar" data-scrollspy="scrollspy">
+                  <div class="topbar-inner">
+                    <div class="container canvas">
+                      <a class="brand" href="#">Urbanetwork</a>
+                      <ul class="nav secondary-nav">
+                        <?php while($i<6){ ?>
+                            <li><a href="<?php echo BASE_URL.'index.php'.DS.'pages'.DS.$pages[$i];?>" 
+                                   title="<?php echo $pages[$i]; ?>"><?php echo $pages[$i]; ?> </a></li>
+                                   <?php $i++?>
+                        <?php } ?>
+                        <li class="dropdown" data-dropdown="dropdown">
+                            <a href="#" class="dropdown-toggle">About Us</a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">The project</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Contact Us</a></li>
+                            </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
             </div>
-        </div>
-        
-        <div class="container">
-            <?php   echo $content_for_layout; ?>
-        </div> 
-        
-        <div class="footer">
             
+            <br>
+            <br>
+            <br>
+        
+            <?php   echo $content_for_layout; ?>
+            
+            <br>
+            <br>
+            <br>
         </div>
+        <footer>
+            <div class="container canvas">
+                <div class="row">
+                    <div class="span4 foot">
+                        <p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">
+                            <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
+                        </a><br/>
+                        This work is licensed under a 
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">
+                            Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+                        </a>.</p>
+                        <p>&copy; urbanetwork.com 2012-2013.</p>
+                    </div>
+                    <div class="span5 foot">
+                        <h3>Communautées</h3>
+                        <div class="row">
+                            <div class="span1">
+                                <a href="http://www.facebook.com/pages/Urbanetwork" >
+                                    <img src="/webroot/images/IcoFacebook.jpeg"/>
+                                </a>
+                            </div>
+                            <div class="span1">
+                                <a href="https://plus.google.com/Urbanetwork" >
+                                    <img src="/webroot/images/IcoGoogle.jpeg"/>
+                                </a>
+                            </div>
+                            <div class="span1">
+                                <a href="http://www.twitter.com/Urbanetwork" >
+                                    <img src="/webroot/images/IcoTwitter.jpeg"/>
+                                </a>
+                            </div>
+                            <div class="span1">
+                                <a href="http://in.linkedin.com/in/Urbanetwork" >
+                                    <img src="/webroot/images/IcoLinkedIn.jpeg"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3 foot">
+                        <img class="thumbnail" src="/webroot/images/smallLogo.png" alt="Urbanetwork logo"/>
+                    </div> 
+                </div>
+            </div>
+        </footer> 
     </body>
 </html>
