@@ -26,7 +26,7 @@ CREATE TABLE videos (
 
 CREATE TABLE wids (
     wids_id SERIAL NOT NULL PRIMARY KEY,
-    temps VARCHAR(40),
+    duree TIMESTAMPTZ,
     verbe VARCHAR(40),
     place VARCHAR(40),
     quand TIMESTAMPTZ
@@ -41,7 +41,7 @@ CREATE TABLE postes (
     constraint fk_wid FOREIGN KEY (wids_id) 
         REFERENCES wids(wids_id) 
         ON UPDATE cascade ON DELETE cascade,
-    constraint postes_id PRIMARY KEY (user_id, wids_id)
+    constraint postes_id PRIMARY KEY (users_id, wids_id)
 );
 
 CREATE TABLE contient (
@@ -55,3 +55,22 @@ CREATE TABLE contient (
         ON UPDATE cascade ON DELETE cascade,
     constraint contient_id PRIMARY KEY (channels_id, videos_id)
 );
+
+INSERT INTO wids (duree,verbe,place,quand) VALUES
+    ('','','',''),
+    ('','','',''),
+    ('','','',''),
+    ('','','',''),
+    ('','','','');
+
+INSERT INTO users (nom,prenom,discipline,facebook_id,channel_id) VALUES
+    ('','','','',NULL),
+    ('','','','',NULL),
+    ('','','','',NULL);
+
+INSERT INTO postes (users_id,wids_id) VALUES
+    ( , ),
+    ( , ),
+    ( , ),
+    ( , ),
+    ( , );
