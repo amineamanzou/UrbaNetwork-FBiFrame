@@ -2,3 +2,4 @@ AppInfo.php
 sdk/src/**/*
 /nbproject/*
 /config/conf.php
+.DS_STORE
