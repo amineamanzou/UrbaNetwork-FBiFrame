@@ -12,6 +12,11 @@ class Model{
      */
     public function __construct() {
         
+        // J'initialise quelques variables
+        if ($this->table === false){
+            $this->table = strtolower(get_class($this)).'s';
+        }
+        
         // Je me connecte à la base
         $conf = Conf::$databases[$this->conf];
         if (isset(Model::$connections[$this->conf])){
@@ -37,12 +42,6 @@ class Model{
                 }
             }
         }
-        
-        // J'initialise quelques variables
-        if ($this->table === false){
-            $this->table = strtolower(get_class($this)).'s';
-        }
-        
         
     }
     
