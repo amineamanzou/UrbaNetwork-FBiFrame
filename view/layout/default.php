@@ -16,17 +16,25 @@
                     <div class="container canvas">
                       <a class="brand" href="#">Urbanetwork</a>
                       <ul class="nav secondary-nav">
-                        <?php while($i<6){ ?>
-                            <li><a href="<?php echo BASE_URL.'index.php'.DS.'pages'.DS.$pages[$i];?>" 
-                                   title="<?php echo $pages[$i]; ?>"><?php echo $pages[$i]; ?> </a></li>
-                                   <?php $i++?>
+                        <?php while($i<3){ ?>
+                            <li <?php if ($pages[$i] == $nompage ) echo 'class="active"'; ?> >
+                                <a href="<?php echo BASE_URL.'index.php'.DS.'pages'.DS.$pages[$i];?>" 
+                                   title="<?php echo $pages[$i]; ?>"><?php echo $pages[$i]; ?> </a>
+                            </li>
+                            <?php $i++?>
                         <?php } ?>
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">About Us</a>
                             <ul class="dropdown-menu">
-                              <li><a href="#">The project</a></li>
+                              <li <?php if ($pages[$i+1] == $nompage ) echo 'class="active"'; ?> >
+                                <a href="<?php echo BASE_URL.'index.php'.DS.'pages'.DS.$pages[$i+1];?>" 
+                                   title="<?php echo $pages[$i+1]; ?>"><?php echo $pages[$i+1]; ?> </a>
+                              </li>
                               <li class="divider"></li>
-                              <li><a href="#">Contact Us</a></li>
+                              <li <?php if ($pages[$i] == $nompage ) echo 'class="active"'; ?> >
+                                <a href="<?php echo BASE_URL.'index.php'.DS.'pages'.DS.$pages[$i];?>" 
+                                   title="<?php echo $pages[$i]; ?>"><?php echo $pages[$i]; ?> </a>
+                              </li>
                             </ul>
                         </li>
                       </ul>
@@ -89,6 +97,14 @@
                     </div> 
                 </div>
             </div>
-        </footer> 
+        </footer>
+        <!-- Le javascript -->
+        <script src="/webroot/javascript/jquery-1.7.1.min.js"></script>
+        <script src="/webroot/javascript/bootstrap-alerts.js"></script>
+        <script src="/webroot/javascript/bootstrap-popover.js"></script>
+        <script src="/webroot/javascript/bootstrap-twipsy.js"></script>
+        <script src="/webroot/javascript/bootstrap-tabs.js"></script>
+        <script src="/webroot/javascript/bootstrap-dropdown.js"></script>
+        
     </body>
 </html>
