@@ -2,6 +2,7 @@
 class PagesController extends Controller{
     
     function WhatTheyDo(){
+        $d['nompage'] = 'WhatTheyDo';
         $this->loadModel('Wid');
         
         $d['page'] = $this->Wid->findfriendwids(array(
@@ -18,6 +19,7 @@ class PagesController extends Controller{
     }
     
     function WhatIDo(){
+        $d['nompage'] = 'WhatIDo';
         $this->loadModel('Wid');
         
         $d['page'] = $this->Wid->finduserwids(array(
@@ -32,20 +34,25 @@ class PagesController extends Controller{
         $this->set($d);
     }
     
-    function Profile(){
-        
-    }
-    
     function Channel(){
+        $d['nompage'] = 'Channel';
         
+        $d['pages'] = get_class_methods($this);
+        $this->set($d);
     }
     
     function Contact(){
+        $d['nompage'] = 'Contact';
         
+        $d['pages'] = get_class_methods($this);
+        $this->set($d);
     }
     
     function Company(){
+        $d['nompage'] = 'Company';
         
+        $d['pages'] = get_class_methods($this);
+        $this->set($d);
     }
 }
 ?>
