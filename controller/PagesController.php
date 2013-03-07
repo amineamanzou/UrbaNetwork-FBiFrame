@@ -10,7 +10,10 @@ class PagesController extends Controller{
             12434352433,
             1123142131
         ));
-        $d['pages'] = get_class_methods($this);
+        $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
+                        get_class_methods($this),
+                        get_class_methods(get_parent_class($this)) 
+                       );
         if(empty($d['page'])){
             $this->e404('Page introuvable');
         }
@@ -25,7 +28,10 @@ class PagesController extends Controller{
         $d['page'] = $this->Wid->finduserwids(array(
             1112232131
         ));
-        $d['pages'] = get_class_methods($this);
+        $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
+                        get_class_methods($this),
+                        get_class_methods(get_parent_class($this)) 
+                       );
 
         if(empty($d['page'])){
             $this->e404('Page introuvable');
@@ -37,21 +43,30 @@ class PagesController extends Controller{
     function Channel(){
         $d['nompage'] = 'Channel';
         
-        $d['pages'] = get_class_methods($this);
+        $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
+                        get_class_methods($this),
+                        get_class_methods(get_parent_class($this)) 
+                       );
         $this->set($d);
     }
     
     function Contact(){
         $d['nompage'] = 'Contact';
         
-        $d['pages'] = get_class_methods($this);
+        $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
+                        get_class_methods($this),
+                        get_class_methods(get_parent_class($this)) 
+                       );
         $this->set($d);
     }
     
     function Company(){
         $d['nompage'] = 'Company';
         
-        $d['pages'] = get_class_methods($this);
+        $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
+                        get_class_methods($this),
+                        get_class_methods(get_parent_class($this)) 
+                       );
         $this->set($d);
     }
 }
