@@ -32,3 +32,5 @@
     ?>
 </div>
 
+<?php debug($page); ?>
+
