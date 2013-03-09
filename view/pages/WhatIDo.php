@@ -14,6 +14,7 @@
   <p><strong>Normalement</strong> suite de post what i do. Avec un form pour poster.</p>
 </div>
 
+
 <div class="">
     <?php while(isset($page[$i])) { ?>
         <blockquote>

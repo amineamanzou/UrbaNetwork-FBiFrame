@@ -37,6 +37,7 @@ class Controller {
             ob_start();
             require($view);
             $content_for_layout = ob_get_clean();
+            ob_end_clean();
             require ROOT.DS.'view'.DS.'layout'.DS.$this->layout.'.php';
             $this->rendered = true;
         }
