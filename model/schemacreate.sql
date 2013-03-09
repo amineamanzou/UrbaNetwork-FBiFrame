@@ -57,20 +57,20 @@ CREATE TABLE contient (
 );
 
 INSERT INTO wids (duree,verbe,place,quand) VALUES
-    ('','','',''),
-    ('','','',''),
-    ('','','',''),
-    ('','','',''),
-    ('','','','');
+    (NULL,'freestyling','Casablanca','2013-03-07'),
+    (NULL,'breakdancing','Rabat','2013-03-04'),
+    (NULL,'chilling','Dubai Airport','2013-02-19'),
+    (NULL,'demonstrating','Paris Mall Show','2013-01-04'),
+    (NULL,'dealing something','South of Morocco','2013-02-22');
 
-INSERT INTO users (nom,prenom,discipline,facebook_id,channel_id) VALUES
-    ('','','','',NULL),
-    ('','','','',NULL),
-    ('','','','',NULL);
+INSERT INTO users (nom,prenom,discipline,facebook_id,channels_id) VALUES
+    ('Amanzou','Amine','Freestyler',1112232131,NULL),
+    ('Mo','Hriz','Bboy',12434352433,NULL),
+    ('Oubella','Mohammed','Popping',1123142131,NULL);
 
 INSERT INTO postes (users_id,wids_id) VALUES
-    ( , ),
-    ( , ),
-    ( , ),
-    ( , ),
-    ( , );
+    (1,1),
+    (2,2),
+    (3,3),
+    (3,4),
+    (2,5);
