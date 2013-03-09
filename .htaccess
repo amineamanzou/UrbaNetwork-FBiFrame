@@ -1,2 +1,6 @@
 RewriteEngine On
 RewriteRule (.*) webroot/index.php
+<IfModule mod_php5.c>
+  php_value include_path ".:/usr/local/Cellar/php54/5.4.11/lib/php:/Library/Webserver/Documents/frozen-plateau-6039/library/"
+</IfModule>
+
