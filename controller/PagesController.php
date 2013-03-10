@@ -2,76 +2,85 @@
 class PagesController extends Controller{
     
     function Welcome (){
-
-        /**
-         * This sample app is provided to kickstart your experience using Facebook's
-         * resources for developers.  This sample app provides examples of several
-         * key concepts, including authentication, the Graph API, and FQL (Facebook
-         * Query Language). Please visit the docs at 'developers.facebook.com/docs'
-         * to learn more about the resources available to you
-         */
-
+        session_start();
+        $d['nompage'] = 'Welcome';
+        $this->loadModel('User');
 
         // Enforce https on production
         if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
-          header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-          exit();
+            header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+            exit();
         }
-
 
 
         $facebook = new Facebook(array(
-          'appId'  => AppInfo::appID(),
-          'secret' => AppInfo::appSecret(),
-          'sharedSession' => true,
-          'trustForwarded' => true,
+            'appId'  => AppInfo::appID(),
+            'secret' => AppInfo::appSecret(),
+            'sharedSession' => true,
+            'trustForwarded' => true,
         ));
 
-	$user = $facebook->getUser();
+        $uid = $facebook->getUser();
+        $d['uid'] = $uid;
 
-        if ($user) {
-          echo '<a href="' . $facebook->getLogoutUrl() . '">Logout</a>';
+        if ($uid) {
+            $d['logout']=$facebook->getLogoutUrl();
         } else {
-          echo '<a href="' . $facebook->getLoginUrl() . '">Login</a>';
+            $d['login']=$facebook->getLoginUrl();
         }
-        
-        
-        
 
-        if ($user) {
-          try {
-            // Fetch the viewer's basic information
-            $basic = $facebook->api('/me');
-            $d['basic'] = $basic;
-          } catch (FacebookApiException $e) {
-            // If the call fails we check if we still have a user. The user will be
-            // cleared if the error is because of an invalid accesstoken
-            if (!$facebook->getUser()) {
-              header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
-              exit();
+
+        if ($uid) {
+            try {
+                // Fetch the viewer's basic information
+                $basic = $facebook->api('/me');
+                //$d['basic'] = $basic;
+            } catch (FacebookApiException $e) {
+                // If the call fails we check if we still have a user. The user will be
+                // cleared if the error is because of an invalid accesstoken
+                if (!$facebook->getUser()) {
+                  header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
+                  exit();
+                }
             }
-          }
 
-          // This fetches some things that you like . 'limit=*" only returns * values.
-          // To see the format of the data you are retrieving, use the "Graph API
-          // Explorer" which is at https://developers.facebook.com/tools/explorer/
-          $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
+            // To see the format of the data you are retrieving, use the "Graph API
+            // Explorer" which is at https://developers.facebook.com/tools/explorer/
 
-          // This fetches 4 of your friends.
-          $friends = idx($facebook->api('/me/friends?limit=4'), 'data', array());
+            // This fetches 4 of your friends.
+            $friends = idx($facebook->api('/me/friends?limit=4'), 'data', array());
 
-          // And this returns 16 of your photos.
-          $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
-
-          // Here is an example of a FQL call that fetches all of your friends that are
-          // using this app
-          $app_using_friends = $facebook->api(array(
-            'method' => 'fql.query',
-            'query' => 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1'
-          ));
-            $d['likes'] = $likes;
+            // Here is an example of a FQL call that fetches all of your friends that are
+            // using this app
+            $app_using_friends = $facebook->api(array(
+                'method' => 'fql.query',
+                'query' => 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1'
+            ));
             $d['friends'] = $friends;
-            $d['photos'] = $photos;
+
+            $userid = $this->User->matchUser(array(
+                'conditions' => 'facebook_id='.$uid
+            ));
+
+            // On a aucun utilisateur qui correspond
+            if(empty($userid)){
+                $nom = $basic['first_name'];
+                $prenom = $basic['last_name'];
+                $userid = $this->User->insertUser(array(
+                    'nom' => $nom,
+                    'prenom' => $prenom,
+                    'uid' => $uid
+                ));
+            }
+            else {
+                //$userid = $userid[0];
+                $nom = $userid[0]->nom;
+                $prenom = $userid[0]->prenom;
+            }
+            $_SESSION['user'] = array();
+            $_SESSION['user']['users_id'] = $userid[0]->users_id;
+            $_SESSION['user']['nom'] = $nom;
+            $_SESSION['user']['prenom'] = $prenom;
         }
 
         // Fetch the basic info of the app that they are using
@@ -83,13 +92,10 @@ class PagesController extends Controller{
         $d['app_info'] = $app_info ;
         $d['app_name'] = $app_name;
         
-        $d['nompage'] = 'Welcome';
-        
         $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
                         get_class_methods($this),
                         get_class_methods(get_parent_class($this)) 
                        );
-//        debug($d);
         $this->set($d);
     }
     
@@ -122,7 +128,7 @@ class PagesController extends Controller{
         ));
         $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
                         get_class_methods($this),
-                        get_class_methods(get_parent_class($this)) 
+                         get_class_methods(get_parent_class($this)) 
                        );
 
         if(empty($d['page'])){

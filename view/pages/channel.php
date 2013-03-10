@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <div class="hero-unit">
     <div class="row">
         <div class="row3">
@@ -43,5 +44,6 @@
     </div>
 </div>
 
+<?php debug($_SESSION['user']); ?>
 
 

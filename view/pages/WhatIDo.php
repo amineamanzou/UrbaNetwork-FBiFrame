@@ -1,5 +1,5 @@
 <?php
-    $title_for_layout = 'What I Do';
+    session_start();
     $i = 0;
 ?>
 <section id="overview">
