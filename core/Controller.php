@@ -14,7 +14,6 @@ class Controller {
      */
     function __construct($request) {
         $this->request = $request;      //On stock une request dans l'instance
-        $this->loadModel('Wid');
     }
     
     /**
