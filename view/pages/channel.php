@@ -1,11 +1,11 @@
-<?php session_start(); ?>
 <div class="hero-unit">
     <div class="row">
-        <div class="row3">
-            Ma Photo
+        <div class="span3">
+            <img src="https://graph.facebook.com/<?php echo $this->Session->read('facebook_id'); ?>/picture?type=normal" />
         </div>
-        <div class="row9">
-            Mon Nom Prenom Score
+        <div class="span6">
+            <h2><?php echo $this->Session->read('nom').' '.$this->Session->read('prenom'); ?></h2>
+            <h3><strong>Score :</strong></h3>
         </div>
     </div>
 </div>
@@ -14,8 +14,8 @@
     <div class="row">
         <?php foreach($videoFeed as $v): $thumbs = $v->getVideoThumbnails(); ?>
         <div class="span4" style="height:300px;">
-            <div class="thumbnail">
-                <h3><?php echo $v->getVideoTitle(); ?></h3>
+            <div class="well">
+                <h5><strong><?php echo $v->getVideoTitle(); ?></strong></h5>
                 <img class="thumbnail" src="<?php echo $thumbs[2]['url'];  ?>" >
                 <p><?php echo $v->getVideoDescription(); ?></p>
                           <div id="modal-from-dom" class="modal hide fade">
@@ -44,6 +44,5 @@
     </div>
 </div>
 
-<?php debug($_SESSION['user']); ?>
 
 
