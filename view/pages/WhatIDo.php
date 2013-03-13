@@ -1,10 +1,9 @@
 <?php
-    session_start();
     $i = 0;
 ?>
 <section id="overview">
     <div class="hero-unit">
-        <p><?php echo $title_for_layout; ?></p>
+        <p><?php echo $nompage; ?></p>
         <i>Qu'est je fait ces derniers jours ?</i>
     </div>
 </section>
@@ -32,6 +31,3 @@
           }
     ?>
 </div>
-
-<?php debug($page); ?>
-
