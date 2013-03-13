@@ -38,7 +38,10 @@ class Dispatcher {
         $file = ROOT.DS.'controller'.DS.$name.'.php';
         require $file;
         // $name sera remplacé par le bon controller
-        return new $name($this->request);
+        $controller =  new $name($this->request);
+        require ROOT.DS.'controller'.DS.'UsersController.php';
+        $controller->User = new UsersController();
+        return $controller;
     }
 
 

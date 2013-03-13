@@ -12,8 +12,18 @@ class Controller {
      * 
      * @param $request Objet Request de notre appli
      */
-    function __construct($request) {
-        $this->request = $request;      //On stock une request dans l'instance
+    function __construct($request=null) {
+        $this->Session = new Session();
+        $facebook = new Facebook(array(
+                                'appId'  => AppInfo::appID(),
+                                'secret' => AppInfo::appSecret(),
+                                'sharedSession' => true,
+                                'trustForwarded' => true,
+                            ));
+        $this->facebook = $facebook;
+        if($request){
+            $this->request = $request;      //On stock une request dans l'instance
+        } 
     }
     
     /**
@@ -80,8 +90,19 @@ class Controller {
      */
     public function e404($message){
         header('HTTP/1.0 404 Not Found');
-        $controller->set('message',$message);
-        $controller->render('/errors/404'); 
+        $array['nompage'] = '404';
+        $array['pages'] = $this->topheader();
+        $array['message'] = $message;
+        $this->set($array);
+        $this->render('/errors/404'); 
+    }
+    
+    public function topheader(){
+        $controller = new PagesController();
+        return array_diff( // Afin d'enlever les méthode du parent
+                        get_class_methods($controller), 
+                        get_class_methods($this)  
+                       );
     }
 }
 ?>
