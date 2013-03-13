@@ -6,6 +6,9 @@
         <title><?php echo isset($title_for_layout)? $title_for_layout:'Urbanetwork'; ?></title>
         <link rel="stylesheet" href="/webroot/stylesheets/fbootstrapp/bootstrap.css">
         <link rel="stylesheet" href="/webroot/stylesheets/fbootstrapp/bootstrap.min.css">
+<!--        <link rel="stylesheet" href="/webroot/stylesheets/screen.css" media="Screen" type="text/css" />
+        <link rel="stylesheet" href="/webroot/stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />-->
+
     </head>
     
     <body>
@@ -43,12 +46,17 @@
                 </div>
             </div>
             
-            <br>
-            <br>
-            <br>
-        
-            <?php   echo $content_for_layout; ?>
-            
+            <div class="container canvas" style="padding-top: 60px">
+                <?php   echo $this->Session->flash(); ?>
+                <?php   if(!$this->Session->isLogged()) : ?>
+                      <div>
+                        <h1>Welcome, please connect with Facebook</h1> 
+                        <div class="fb-login-button"></div>
+                      </div>
+                <?php   else : ?>
+                    <?php   echo $content_for_layout; ?>
+                <?php   endif; ?>
+            </div>
             <br>
             <br>
             <br>
