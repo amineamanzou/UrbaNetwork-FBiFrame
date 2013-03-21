@@ -63,14 +63,14 @@ cp ./config/config.php.dist ./config/Config.php
 ### Creating the virtual host with Facebook config :
 
 * For example :
-    
+```bash
     <VirtualHost *:80>
         DocumentRoot /Users/adam/Sites/myapp
         ServerName myapp.localhost
         SetEnv FACEBOOK_APP_ID 12345
         SetEnv FACEBOOK_SECRET abcde
     </VirtualHost>
-
+``
 ## Ready !
 You can now use this project as a normal web project.
 
