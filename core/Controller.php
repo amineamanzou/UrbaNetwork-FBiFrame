@@ -5,7 +5,7 @@ class Controller {
     private $vars = array();        // contient les variable communiqué à travers la vue
     private $layout = 'default';    // Layout utilisé pour rendre la vue
     private $rendered = false;      // permet de savoir si la vue à déjà été rendus ou pas
-
+    private $perPage = 5;           // précise le nombre de résultats par pages
 
     /**
      * Constructeur
