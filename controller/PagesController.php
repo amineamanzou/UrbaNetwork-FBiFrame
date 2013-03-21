@@ -5,10 +5,10 @@ class PagesController extends Controller{
         $d['nompage'] = 'Welcome';
         
         // Enforce https on production
-        /*if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
+        if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
             header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             exit();
-        }*/
+        }
         
         $connected = $this->User->login();
         
@@ -20,14 +20,14 @@ class PagesController extends Controller{
         }
         
         // Fetch the basic info of the app that they are using
-        /*$app_info = $facebook->api('/'. AppInfo::appID());
+        $app_info = $this->facebook->api('/'. AppInfo::appID());
 
         $app_name = idx($app_info, 'name', '');
 
         $d['app_info'] = $app_info ;
         $d['app_name'] = $app_name;
-*/
-        $d['connected']=$connected;
+      
+        $d['connected'] = $connected;
         $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
                         get_class_methods($this),
                         get_class_methods(get_parent_class($this)) 
@@ -39,16 +39,12 @@ class PagesController extends Controller{
         $d['nompage'] = 'WhatTheyDo';
         $this->loadModel('Wid');
         
-        $d['page'] = $this->Wid->findfriendwids(array(
-            1112232131,
-            12434352433,
-            1123142131
-        ));
+        $d['page'] = $this->Wid->findPublicWids();
         $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
                         get_class_methods($this),
                         get_class_methods(get_parent_class($this)) 
                        );
-        if(empty($d['page'])){
+        if(empty($d['pages'])){
             $this->e404('Page introuvable');
         }
         
@@ -58,16 +54,25 @@ class PagesController extends Controller{
     function WhatIDo(){
         $d['nompage'] = 'WhatIDo';
         $this->loadModel('Wid');
-        
-        $d['page'] = $this->Wid->finduserwids(array(
-            1112232131
+        $perPage=1;
+        $fbid = $this->Session->read('facebook_id');
+        $d['page'] = $this->Wid->findUserWids(array(
+            'conditions'    =>  1112232131,
+            'limit'         =>  $perPage.' offset '.($perPage*($this->request->numPage-1))
         ));
+        
+        $d['total'] = $this->Wid->findCount(array(
+            'conditions'    =>  1112232131,
+        ));
+        
+        $d['nbrPage'] = ceil($d['total']/$perPage);
+        
         $d['pages'] = array_diff( // Afin d'enlever les méthode du parent
                         get_class_methods($this),
                          get_class_methods(get_parent_class($this)) 
                        );
 
-        if(empty($d['page'])){
+        if(empty($d['pages'])){
             $this->e404('Page introuvable');
         }
         

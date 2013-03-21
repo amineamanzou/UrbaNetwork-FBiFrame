@@ -26,7 +26,7 @@ class UsersController extends Controller{
             $userid = $this->User->matchUser(array(
                 'conditions' => 'facebook_id='.$uid
             ));
-
+            
             // On a aucun utilisateur qui correspond
             if(empty($userid)){
                 $nom = $basic['first_name'];
