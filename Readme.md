@@ -1,17 +1,69 @@
-Facebook/Heroku sample app -- PHP
-=================================
+UrbaNetwork project
+===============================================================
 
-This is a sample app showing use of the Facebook Graph API, written in PHP, designed for deployment to [Heroku](http://www.heroku.com/).
+## Introduction
+This project is a Facebook iFrame that will promote underground artist sush as danser, graffer and all kind of street performer.
+Urbanetwork is a project born in the university for our studies. We are a dev team composed of 3 members.
+We love web developement and we wanted to use all the API that interact with social and media website for an open source and MVC project.
 
-Run locally
------------
+## Installation
+### Download and install the package
+* Download zip file from gitHub [here](https://github.com/amineamanzou/UrbaNetwork-FBiFrame)
+* Unzip it in your document root directory
 
-Configure Apache with a `VirtualHost` that points to the location of this code checkout on your system.
+### Create your database
 
-[Create an app on Facebook](https://developers.facebook.com/apps) and set the Website URL to your local VirtualHost.
+* Launch phppgadmin
+* Create your databse for example : urbanetwork-fb
+* Import the SQL file : [here](https://github.com/amineamanzou/UrbaNetwork-FBiFrame/blob/master/model/schemacreate.sql)
+    Or you can find it here :
 
-Copy the App ID and Secret from the Facebook app settings page into your `VirtualHost` config, something like:
+```bash
+cd ./model/
+```
 
+### Configuration
+
+* Create your configuration file :
+
+```bash
+cp ./config/config.php.dist ./config/Config.php
+```
+
+* Customize it :
+
+  ```php
+  // ./config/Config.php
+  class Conf {
+      
+      /**
+       *  Permet le stockage de plusieur base de donnée par exemple pour switcher
+       *  entre un environnement de production et développement.
+       */
+      static  $databases = array(
+                    // The production environnement on heroku
+                    'default' => array( 
+                        'host'      => 'ec2-23-23-201-251.compute-1.amazonaws.com',
+                        'port'      => 5432,
+                        'dbname'    => 'db07sb6qgledcv',
+                        'login'     => 'tggzkndflnupsy',
+                        'password'  => 'zmwMTm-cfCnqfZJla9WGSTU5ga' 
+                    ),
+                    'dev' => array(
+                        'host'      => '127.0.0.1',
+                        'port'      => 5432,
+                        'dbname'    => 'urbanetwork-fb',  
+                        'login'     => 'root',            //Your local login
+                        'password'  => ''                 //Your local pass
+                    )
+              );
+  }
+  ```
+
+### Creating the virtual host with Facebook config :
+
+* For example :
+    
     <VirtualHost *:80>
         DocumentRoot /Users/adam/Sites/myapp
         ServerName myapp.localhost
@@ -19,22 +71,6 @@ Copy the App ID and Secret from the Facebook app settings page into your `Virtua
         SetEnv FACEBOOK_SECRET abcde
     </VirtualHost>
 
-Restart Apache, and you should be able to visit your app at its local URL.
+## Ready !
+You can now use this project as a normal web project.
 
-Deploy to Heroku via Facebook integration
------------------------------------------
-
-The easiest way to deploy is to create an app on Facebook and click Cloud Services -> Get Started, then choose PHP from the dropdown.  You can then `git clone` the resulting app from Heroku.
-
-Deploy to Heroku directly
--------------------------
-
-If you prefer to deploy yourself, push this code to a new Heroku app on the Cedar stack, then copy the App ID and Secret into your config vars:
-
-    heroku create --stack cedar
-    git push heroku master
-    heroku config:add FACEBOOK_APP_ID=12345 FACEBOOK_SECRET=abcde
-
-Enter the URL for your Heroku app into the Website URL section of the Facebook app settings page, hen you can visit your app on the web.
-
-Commit Test
