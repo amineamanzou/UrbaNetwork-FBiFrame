@@ -12,6 +12,23 @@
 
 <div class="container canvas">
     <div class="row">
+        <div class="span4 well">
+            Cet utilisateur n'a pas ajouter sa chaîne youtube.
+        </div>
+        <div class="span4 well">
+            Vous n'avez pas ajouter votre chaîne youtube.
+        </div>
+        <div class="span8 well">
+          <div class="clearfix">
+              <label for="xlInput5">Channel name :&nbsp;</label>
+            <div class="input">
+              <input class="xlarge" id="xlInput3" name="xlInput3" size="30" type="text">
+            </div>
+          </div>
+          <div class="actions pull-right">
+            <input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn">Cancel</button>
+          </div>
+        </div>
         <?php foreach($videoFeed as $v): $thumbs = $v->getVideoThumbnails(); ?>
         <div class="span4" style="height:300px;">
             <div class="well">
