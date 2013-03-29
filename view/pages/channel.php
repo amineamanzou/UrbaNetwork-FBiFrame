@@ -13,7 +13,7 @@
 <div class="container canvas">
     <div class="row">
         <div class="span4 well">
-            Cet utilisateur n'a pas ajouter sa chaîne youtube.
+            Cet utilisateur n'a pas ajouter de chaîne youtube.
         </div>
         <div class="span4 well">
             Vous n'avez pas ajouter votre chaîne youtube.
